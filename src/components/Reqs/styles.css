@@ -1,0 +1,13 @@
+div#Reqs {
+  background-color: #1d1d1d;
+  height: 100vh;
+  width: 25vw;
+  color: #d1d1d1;
+}
+#Reqs .side-item {
+  padding: 1vh 1vw;
+}
+#Reqs .side-item:hover {
+  transition: all 50ms;
+  background-color: #2d2d2d;
+}
