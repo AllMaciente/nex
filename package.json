@@ -4,12 +4,25 @@
   "version": "0.0.0",
   "type": "module",
   "main": "public/electron.js",
+  "build": {
+    "appId": "com.nex.app",
+    "files": [
+      "dist/",
+      "public/",
+      "node_modules/",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build"
+    }
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && electron-builder",
     "lint": "eslint .",
     "preview": "vite preview",
-    "electron": "electron ."
+    "electron": "electron .",
+    "dist": "electron-builder"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -22,6 +35,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "electron": "^32.1.2",
+    "electron-builder": "^25.0.5",
     "eslint": "^9.9.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
