@@ -1,11 +1,27 @@
 div#Reqs {
   background-color: #1d1d1d;
   height: 100vh;
-  width: 25vw;
+  width: 20vw;
   color: #d1d1d1;
+  border-radius: 0 0 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3vh 0;
+}
+#Reqs .btn {
+  background-color: #00a8aa;
+  font-size: medium;
+  font-weight: 800;
+  padding: 1vh 1vw;
+  border-radius: 15px;
+}
+#Reqs .btn:hover {
+  background-color: #0c7d83;
 }
 #Reqs .side-item {
   padding: 1vh 1vw;
+  width: 90%;
 }
 #Reqs .side-item:hover {
   transition: all 50ms;

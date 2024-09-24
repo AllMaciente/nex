@@ -1,37 +1,58 @@
 import "./styles.css";
 import { useEffect, useState } from "react";
+
 function Reqs() {
   const [conteudo, setConteudo] = useState(<p>Carregando</p>);
-  const [reqs, setReqs] = useState(JSON.parse(localStorage.getItem("reqs")));
+  const [reqs, setReqs] = useState([]);
 
-  function listarItens() {
-    try {
-      const itens = reqs;
-
-      // Retorna os personagens mapeados em componentes Card
-      return itens.map((item) => (
-        <div className="side-item">
-          <span className="typeText">{item.type} |</span>
-          <span className="nameText"> {item.name}</span>
-        </div>
-      ));
-    } catch (error) {
-      console.error(error);
-      setConteudo(<p>Erro ao carregar a lista</p>);
-    }
-  }
+  // Função para buscar requisições
   useEffect(() => {
-    function getConteudo() {
-      const itens = listarItens();
-      setConteudo(itens);
-    }
-    getConteudo();
+    window.api.fetchRequests().then(setReqs);
+  }, []);
+
+  // Função para listar itens
+  function listarItens() {
+    return reqs.map((item) => (
+      <div className="side-item" key={item.name}>
+        <span className="typeText">{item.type} |</span>
+        <span className="nameText"> {item.name}</span>
+      </div>
+    ));
+  }
+
+  // Função para adicionar uma nova requisição
+  function adicionarRequisicao() {
+    const novaRequisicao = {
+      name: `Requisicao ${reqs.length + 1}`, // Nome único
+      type: "POST",
+      url: `http://exemplo.com/api/`,
+      body: "{}",
+    };
+
+    window.api
+      .createRequests(novaRequisicao)
+      .then((novoItem) => {
+        setReqs((prevReqs) => [...prevReqs, novoItem]); // Atualiza o estado com a nova requisição
+      })
+      .catch((error) => {
+        console.error("Erro ao adicionar requisição:", error);
+      });
+  }
+
+  useEffect(() => {
+    setConteudo(listarItens());
   }, [reqs]);
+
   return (
     <div id="Reqs">
       <h2>Nex</h2>
+      {/* Botão para adicionar uma nova requisição */}
+      <a className="btn" onClick={adicionarRequisicao}>
+        Add
+      </a>
       {conteudo}
     </div>
   );
 }
+
 export default Reqs;
